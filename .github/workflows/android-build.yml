@@ -30,13 +30,13 @@ jobs:
       
     - name: Initialize Gradle Wrapper
       run: |
-        # 使用Gradle 7.5版本（稳定且兼容）
-        wget https://services.gradle.org/distributions/gradle-7.5-bin.zip
-        sudo unzip -d /opt/gradle gradle-7.5-bin.zip
-        export PATH=$PATH:/opt/gradle/gradle-7.5/bin
+        # 使用Gradle 8.2版本（满足Android插件要求）
+        wget https://services.gradle.org/distributions/gradle-8.2-bin.zip
+        sudo unzip -d /opt/gradle gradle-8.2-bin.zip
+        export PATH=$PATH:/opt/gradle/gradle-8.2/bin
         
         # 使用指定版本的Gradle生成完整的wrapper文件
-        gradle wrapper --gradle-version=7.5
+        gradle wrapper --gradle-version=8.2
         
         # 验证wrapper文件生成成功
         if [ -f "gradle/wrapper/gradle-wrapper.jar" ]; then
