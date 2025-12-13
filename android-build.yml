@@ -1,0 +1,82 @@
+name: Android CI/CD
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  release:
+    types: [published]
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+      
+    - name: Initialize Gradle Wrapper
+      run: |
+        # 使用Gradle 7.5版本（稳定且兼容）
+        wget https://services.gradle.org/distributions/gradle-7.5-bin.zip
+        sudo unzip -d /opt/gradle gradle-7.5-bin.zip
+        export PATH=$PATH:/opt/gradle/gradle-7.5/bin
+        
+        # 使用指定版本的Gradle生成完整的wrapper文件
+        gradle wrapper --gradle-version=7.5
+        
+        # 验证wrapper文件生成成功
+        if [ -f "gradle/wrapper/gradle-wrapper.jar" ]; then
+          echo "Gradle wrapper initialized successfully"
+          ls -la gradle/wrapper/
+        else
+          echo "Warning: Gradle wrapper initialization failed"
+          # 备用方案：手动创建必要的目录结构
+          mkdir -p gradle/wrapper
+          # 下载一个基础的gradle-wrapper.jar
+          curl -L -o gradle/wrapper/gradle-wrapper.jar https://repo.maven.apache.org/maven2/gradle/wrapper/gradle-wrapper/3.1.1/gradle-wrapper-3.1.1.jar
+        fi
+      
+    - name: Cache Gradle packages
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle
+      
+    - name: Build Release APK
+      run: ./gradlew assembleRelease
+      
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: AutoGLM-Release-APK
+        path: app/build/outputs/apk/release/app-release.apk
+        retention-days: 30
+        
+    - name: Upload APK to Release
+      if: github.event_name == 'release'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: app/build/outputs/apk/release/app-release.apk
+        asset_name: AutoGLM-${{ github.event.release.tag_name }}.apk
+        asset_content_type: application/vnd.android.package-archive
