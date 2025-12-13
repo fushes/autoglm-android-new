@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">智谱AutoGLM</string>
+    <string name="service_status">服务状态</string>
+    <string name="start_service">启动服务</string>
+    <string name="stop_service">停止服务</string>
+    <string name="execute_task">执行任务</string>
+    <string name="task_hint">例如：打开微信，给张三发送消息</string>
+    <string name="log_title">执行日志</string>
+    <string name="waiting_for_task">等待任务执行...</string>
+    <string name="permission_required">请授权所有权限</string>
+    <string name="accessibility_hint">请在无障碍设置中启用AutoGLM服务</string>
+    <string name="service_started">AutoGLM服务已启动</string>
+    <string name="service_stopped">AutoGLM服务已停止</string>
+    <string name="accessibility_service_description">AutoGLM无障碍服务，用于实现AI手机助手功能</string>
+    <string name="download_model">下载模型</string>
+    <string name="model_downloaded">模型已下载</string>
+    <string name="model_not_downloaded">模型未下载，请先下载模型</string>
+    <string name="download_progress">下载进度</string>
+    <string name="download_success">模型下载成功</string>
+    <string name="download_failed">模型下载失败</string>
+    <string name="enter_task">请输入任务指令</string>
+    <string name="task_submitted">任务已提交</string>
+</resources>

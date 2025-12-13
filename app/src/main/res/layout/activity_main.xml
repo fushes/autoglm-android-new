@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <!-- 应用标题 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="智谱AutoGLM"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
+
+    <!-- 状态显示 -->
+    <TextView
+        android:id="@+id/statusTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="服务状态：未启动"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:background="@drawable/status_background"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 模型下载区域 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/downloadButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="下载模型"
+            android:textSize="16sp"
+            android:layout_marginEnd="8dp"
+            style="@style/Widget.AppCompat.Button.Colored" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- 下载进度显示 -->
+    <TextView
+        android:id="@+id/progressTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下载进度: 0%"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 控制按钮区域 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp">
+
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="启动服务"
+            android:textSize="16sp"
+            android:layout_marginEnd="8dp"
+            android:enabled="false"
+            style="@style/Widget.AppCompat.Button.Colored" />
+
+        <Button
+            android:id="@+id/stopButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="停止服务"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            style="@style/Widget.AppCompat.Button" />
+
+    </LinearLayout>
+
+    <!-- 任务输入区域 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="输入任务指令："
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/taskInputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="例如：打开微信，给张三发送消息"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/executeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="执行任务"
+        android:textSize="16sp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginBottom="24dp" />
+
+    <!-- 日志显示区域 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="执行日志："
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp" />
+
+    <ScrollView
+        android:id="@+id/logScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/log_background">
+
+        <TextView
+            android:id="@+id/logTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="等待任务执行..."
+            android:textSize="12sp"
+            android:padding="12dp"
+            android:textIsSelectable="true" />
+
+    </ScrollView>
+
+    <!-- 底部信息 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="智谱AutoGLM v1.0 - 本地部署版本"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
